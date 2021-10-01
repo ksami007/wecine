@@ -8,7 +8,7 @@
                 <best-movie />
             </div>
 
-            <div class="movie-row">
+            <div class="movie-row" id="movie-row">
                 <div class="col col-list-filter">
                     <list-filter @change="filterChange"/>
                 </div>
@@ -20,6 +20,10 @@
                         <div class="video-item--wrapper" v-for="movie, index in movies" :key="'movie-item-'+index">
                             <movie :movie="movie" />
                         </div>
+                        <div class="paginator-wrapper">
+                            <button @click="prev">Precedent</button>
+                            <button @click="next">Suivant</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -29,11 +33,11 @@
 </template>
 
 <script>
-import AppHeader    from "@/components/AppHeader.vue"
-import BestMovie    from "@/components/BestMovie.vue"
-import ListFilter   from '@/components/ListFilter.vue'
-import Movie        from '@/components/Movie.vue'
-import MovieService from "@/services/MovieService.js"
+import AppHeader      from "@/components/AppHeader.vue"
+import BestMovie      from "@/components/BestMovie.vue"
+import ListFilter     from '@/components/ListFilter.vue'
+import Movie          from '@/components/Movie.vue'
+import MovieService   from "@/services/MovieService.js"
 
 export default {
     name: 'App',
@@ -48,31 +52,63 @@ export default {
     data: function(){
         return {
             movies : false,
-            params : [],
-            fetching : true
+            params : {},
+            fetching : true,
+            page      : 1
         }
     },
 
     methods: {
-        getMovies: function(params = []){
+        getMovies: function(){
             this.fetching = true
-            MovieService.getList(params).then(
+            MovieService.getList(this.params).then(
                 (response)=>{
                     if(response.data.results){
                         this.movies = response.data.results
                     }
                     this.fetching = false
+                    this.goToList()
                 }
             )
         },
         filterChange: function(genres){
-            this.getMovies({
-                   with_genres : genres.toString()
-                }
-            )
+            this.params = {
+                with_genres : genres.toString()
+            }
+            
         },
         selectedMovie: function(item){
             this.movies = [item]
+        },
+
+        next: function(){
+            if(this.movies.length < 20){
+                return 
+            }
+            this.page ++
+        },
+        prev: function(){
+            if(this.page == 1){
+                return 
+            }
+            this.page --
+        },
+        goToList: function(){
+
+        }
+    },
+    watch: {
+        params: {
+            deep: true,
+            handler: function(){
+                this.getMovies()
+            }
+        },
+        page : {
+            handler: function(val){
+                this.params.page = val 
+                this.getMovies()
+            }
         }
     },
 
@@ -118,5 +154,17 @@ export default {
             margin-top: 2rem;
             margin-left: unset;
         }
+    }
+    .paginator-wrapper {
+        padding: 2rem 0;
+        text-align: right;
+    }
+
+    .paginator-wrapper button {
+        color: #317be2;
+        background: white;
+        border: solid 1px #317be2;
+        padding: 5px 15px;
+        margin-left: 5px;
     }
 </style>

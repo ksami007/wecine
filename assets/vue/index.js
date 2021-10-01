@@ -1,9 +1,8 @@
-import Vue          from 'vue'
-import App          from '@/view/App.vue'
-import AppMixin     from '@/mixins/AppMixin';
-import Loader       from "@/components/Loader.vue"
-import VueTruncate  from 'vue-truncate-filter'
-
+import Vue            from 'vue'
+import App            from '@/view/App.vue'
+import AppMixin       from '@/mixins/AppMixin';
+import Loader         from "@/components/Loader.vue"
+import VueTruncate    from 'vue-truncate-filter'
 
 /** import global style */
 import "@/assets/css/index.css"
@@ -14,6 +13,7 @@ Vue.mixin(AppMixin)
 Vue.component('Loader', Loader)
 
 Vue.use(VueTruncate)
+
 
 new Vue({
     template: '<App/>',

@@ -4593,6 +4593,11 @@ uuid@^8.3.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
+v-scroll-threshold@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/v-scroll-threshold/-/v-scroll-threshold-2.0.0.tgz#724e9dfad45db0f83d70509b6fe26b08e55f5ef5"
+  integrity sha512-YfaZdALAuknYjhwF5WnE5R8+yUz+vLdbhqEQrN0NDEsZcBQQSVOm/qXXNb/IXMYbnEs8c9CQb5SYsspAhzobLw==
+
 v8-compile-cache@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
@@ -4628,6 +4633,13 @@ vue-loader@^15.9.5:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-sticky-element@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/vue-sticky-element/-/vue-sticky-element-1.1.2.tgz#55665186658737d6c04bf1470c29f12dc8919686"
+  integrity sha512-YGch1SXqtFI6iVvRaTfXVtu0JSu+16LbwcK+J0ff0JdBWPnn2yiMPWlItbI/UmQbd6q1oPQC0EQAPgOOn4AM3Q==
+  dependencies:
+    v-scroll-threshold "^2.0.0"
 
 vue-style-loader@^4.1.0:
   version "4.1.3"
