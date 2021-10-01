@@ -3,7 +3,7 @@
         <div class="banner-video-item" v-if="movie">
             <img class="bg-image" :src="`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`"/>
             <div class="video-control">
-                <button>
+                <button @click="playVideo">
                     <span class="fa fa-play"></span>
                 </button>
             </div>
@@ -13,22 +13,26 @@
                 </div>
                 <div class="video-meta--text">
                     <div class="video-meta--title">{{ movie.title }}</div>
-                    <!--div class="video-meta--desc">Tesst pulga maitre ianao chefo be nay</div-->
                 </div>
             </div> 
         </div>
+        <app-video-modal v-if="play" @close="closeVideo" :movie="movie" />
     </div>
 </template>
 
 <script>
 
 import MovieService from '@/services/MovieService.js'
+import AppVideoModal from './AppVideoModal.vue'
 export default {
     name: 'BestMovie',
-
+    components: {
+        AppVideoModal
+    },
     data: function(){
         return {
-            movie : false
+            movie : false,
+            play  : false
         }
     },
     methods: {
@@ -40,8 +44,16 @@ export default {
                     }
                 }
             )
-        }
+        },
+        playVideo: function(){
+            this.play = true
+        },
+        closeVideo: function(){
+            this.play = false
+        },
+
     },
+
     mounted: function(){
         this.getTheBest()
     }
@@ -61,6 +73,7 @@ export default {
     }
     .video-control {
         position: absolute;
+        z-index: 1;
     }
     .video-meta {
         position: absolute;

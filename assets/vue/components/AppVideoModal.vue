@@ -5,11 +5,11 @@
                 <span class="close" @click="$emit('close')">&times;</span>
             </div>
             <div class="modal-body">
-                <div class="app-video-player">
-                    <iframe 
+                <div class="app-video-player" v-if="videokey">
+                    <iframe  
                       width="100%" 
                       id="video-player-iframe" 
-                      :src="`https://www.youtube.com/embed/${firstVideo.key}`"
+                      :src="`https://www.youtube.com/embed/${videokey}`"
                       frameborder="0" 
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                       allowfullscreen 
@@ -52,10 +52,20 @@ export default {
         }
     },
     computed: {
-        firstVideo: function(){
-            if(this.video.length){
-                return this.video[0]
+        videokey: function(){
+            if(!this.video){
+                return false
             }
+            if(this.video.length){
+               
+               for (let index = 0; index < this.video.length; index++) {
+                   const element = this.video[index]
+                   if(element.key){
+                       return element.key
+                   }
+               }
+            }
+            return false
         }
     },
     mounted: function(){

@@ -32,8 +32,9 @@ export default {
 
     methods: {
         selectSuggestion: function(item){
-            this.searchparam = item
+            this.searchparam = item.title
             this.suggestions = []
+            this.$emit('selected', item)
         },
         autocomplete: function(){
             let q = this.searchparam

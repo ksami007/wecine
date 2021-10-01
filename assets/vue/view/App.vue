@@ -2,10 +2,10 @@
     <div class="app-body">
         <div class="container">
             <div class="app-header-container">
-                <app-header />
+                <app-header @selected="selectedMovie"/>
             </div>
             <div class="app-banner-container">
-                <best-movie/>
+                <best-movie />
             </div>
 
             <div class="movie-row">
@@ -70,6 +70,9 @@ export default {
                    with_genres : genres.toString()
                 }
             )
+        },
+        selectedMovie: function(item){
+            this.movies = [item]
         }
     },
 
