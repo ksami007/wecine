@@ -51,6 +51,23 @@ class MovieManager
     }
 
     /**
+     * @param string $search
+     * @param int $page
+     * @return mixed
+     * @throws \Exception
+     */
+    public function retrieveMoviesByKeywords(string $search, int $page)
+    {
+        $movies = $this->movieDbProvider->getVideosByKeywordsFromApi($search, $page);
+
+        if (!$movies) {
+            throw new \Exception();
+        }
+
+        return json_decode($movies);
+    }
+
+    /**
      * @return mixed
      * @throws \Exception
      */

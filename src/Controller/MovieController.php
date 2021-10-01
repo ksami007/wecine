@@ -66,15 +66,21 @@ class MovieController extends AbstractController
      */
     public function getMovies(Request $request): JsonResponse
     {
-        $withGenders = $request->query->get('with_genres');
         $page = (int) $request->query->get('page', 1);
 
         if (! is_integer($page)) {
             return new JsonResponse(['message' => 'Invalid page number'], Response::HTTP_BAD_REQUEST);
         }
 
+        $search = $request->query->get('search');
+        $withGenders = $request->query->get('with_genres');
+
         try {
-            $movies = $this->movieManager->retrieveMovies($withGenders, $page);
+            if ($search) { // $search cannot be null
+                $movies = $this->movieManager->retrieveMoviesByKeywords($search, $page);
+            } else {
+                $movies = $this->movieManager->retrieveMovies($withGenders, $page);
+            }
         } catch (\Exception $exception) {
             return new JsonResponse(
                 ['message' => 'Unable to retrieve movies from API'],
