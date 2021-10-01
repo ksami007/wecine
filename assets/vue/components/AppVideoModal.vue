@@ -6,7 +6,14 @@
             </div>
             <div class="modal-body">
                 <div class="app-video-player">
-                    Player
+                    <iframe 
+                      width="100%" 
+                      id="video-player-iframe" 
+                      src="https://www.youtube.com/embed/XQ5bhrr8kRg"
+                      frameborder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      allowfullscreen 
+                      />
                 </div>
                 <div class="app-video-meta">
                     <div class="meta-title">
@@ -38,17 +45,19 @@ export default {
   height: 100%; 
   overflow: auto; 
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgb(0 0 0 / 67%);
+  background-color: rgb(76 76 76 / 92%);
 }
 
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: auto;
+  margin-top: 10%;
   padding: 20px;
   border: 1px solid #888;
-  width: 70%;
+  width: 80%;
   position: relative;
+  max-width: 40rem;
 }
 
 /* The Close Button */
@@ -74,5 +83,9 @@ export default {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+iframe{
+  height:50vh;
 }
 </style>

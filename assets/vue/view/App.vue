@@ -35,15 +35,17 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </template>
 
 <script>
-import AppHeader from "@/components/AppHeader.vue"
-import AppBanner from "@/components/AppBanner.vue"
-import ListFilter from '@/components/ListFilter.vue'
-import AppVideo from '@/components/AppVideo.vue'
+import AppHeader    from "@/components/AppHeader.vue"
+import AppBanner    from "@/components/AppBanner.vue"
+import ListFilter   from '@/components/ListFilter.vue'
+import AppVideo     from '@/components/AppVideo.vue'
+import VideoService from "@/services/VideoService.js"
 
 export default {
     name: 'App',
@@ -53,7 +55,20 @@ export default {
         AppHeader,
         AppBanner,
         AppVideo
+    },
+
+    data: function(){
+        return {
+            videos : []
+        }
+    },
+
+    methods: {
+        findAll: function(){
+            this.videos = VideoService.getAllVideos()
+        }
     }
+
 }
 </script>
 
@@ -72,5 +87,20 @@ export default {
     }
     .video-item--wrapper {
         margin-bottom: 2rem;
+    }
+
+    @media (max-width:991px) {
+        .list-filter--wrapper{
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 1rem 0 1rem;
+        }
+        .app-video-row{
+            flex-direction: column;
+        } 
+        .video-list-container{
+            margin-top: 2rem;
+            margin-left: unset;
+        }
     }
 </style>

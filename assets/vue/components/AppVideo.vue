@@ -1,7 +1,7 @@
 <template>
     <div class="video-wrapper">
         <div class="thumbnails--container">
-
+            <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/ztyJqTdS7RApGgl6ZXmFdGZX3g0.jpg" />
         </div>
         <div class="video-content--container">
             <div class="video-header">
@@ -66,9 +66,11 @@ export default {
 }
 
 .thumbnails--container {
-    min-width: 5rem;
     display: flex;
     background: #aaa;
+}
+.thumbnails--container img {
+    max-height: 10rem;
 }
 
 .video-content--container {
@@ -137,4 +139,6 @@ button.show-more--btn {
     font-family: 'NunitoSans-Regular';
     font-size: 14px;
 }
+
+
 </style>
