@@ -22,6 +22,7 @@
         "axios": "^0.22.0",
         "bootstrap-grid": "^3.0.1",
         "font-awesome": "^4.7.0",
-        "vue-click-outside": "^1.1.0"
+        "vue-click-outside": "^1.1.0",
+        "vue-truncate-filter": "^1.1.7"
     }
 }

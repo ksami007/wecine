@@ -1,7 +1,7 @@
 <template>
     <div class="video-rate--star">
-        <span class="fa fa-star"   v-for="(n,index) in fullStars" :key="'star-full-'+index"></span>
-        <span class="fa fa-star-o" v-for="(n,index) in emptyStars" :key="'star-empty-'+index"></span>
+        <span class="fa fa-star  star-full"   v-for="(n,index) in fullStars" :key="'star-full-'+index"></span>
+        <span class="fa fa-star  star-empty" v-for="(n,index) in emptyStars" :key="'star-empty-'+index"></span>
     </div>
 </template>
 
@@ -42,6 +42,10 @@ export default {
     }
     .video-rate--star  span {
         display: block;
-        margin: 0 3px;
+        margin: 0px 2px;
+        font-size: 14px;
+    }
+    .video-rate--star  .star-empty{
+        color: #aaa;
     }
 </style>

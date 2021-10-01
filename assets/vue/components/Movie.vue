@@ -21,7 +21,7 @@
                     <span class="mata-org">Dysney par</span>
                 </div>
                 <div class="description-text">
-                    {{ movie.overview}}
+                    {{ movie.overview | truncate(200)}}
                 </div>
             </div>
             <div class="video-controls">
@@ -80,6 +80,7 @@ export default {
 .video-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .video-header--rate {
@@ -110,7 +111,7 @@ button.show-more--btn {
 }
 .video-rate--text {
     font-size: 14px;
-    margin: 2px 10px;
+    margin: -1px 10px;
     font-family: 'NunitoSans-Regular';
     color: #666;
 }
