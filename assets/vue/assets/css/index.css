@@ -1,0 +1,23 @@
+@import "bootstrap-grid";
+@import '~font-awesome/css/font-awesome.min.css';
+
+@font-face {
+    font-family: "NunitoSans-Regular";
+    src: url("fonts/NunitoSans-Regular.ttf");
+}
+@font-face {
+    font-family: "NunitoSans-SemiBold";
+    src: url("fonts/NunitoSans-SemiBold.ttf");
+}
+@font-face {
+    font-family: "NunitoSans-Bold";
+    src: url("fonts/NunitoSans-Bold.ttf");
+}
+@font-face {
+    font-family: "NunitoSans-ExtraBold";
+    src: url("fonts/NunitoSans-ExtraBold.ttf");
+}
+@font-face {
+    font-family: "NunitoSans-LightItalic";
+    src: url("fonts/NunitoSans-LightItalic.ttf");
+}
