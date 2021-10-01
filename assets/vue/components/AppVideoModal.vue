@@ -9,7 +9,7 @@
                     <iframe 
                       width="100%" 
                       id="video-player-iframe" 
-                      src="https://www.youtube.com/embed/XQ5bhrr8kRg"
+                      :src="`https://www.youtube.com/embed/${firstVideo.key}`"
                       frameborder="0" 
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                       allowfullscreen 
@@ -17,10 +17,10 @@
                 </div>
                 <div class="app-video-meta">
                     <div class="meta-title">
-                        Video title
+                        {{ movie.title }} {{ movie.id }}
                     </div>
                     <div class="meta-desc">
-                        Excepteur minim magna id sunt ad veniam labore ex sunt pariatur. Duis pariatur nostrud sint officia. Ut laboris anim aliqua sint velit. Laborum id id anim aliqua. Tempor cupidatat sit sint irure esse enim. Aute et mollit tempor magna adipisicing magna nostrud.
+                        {{ movie.overview }}
                     </div>
                 </div>
             </div>
@@ -29,8 +29,38 @@
 </template>
 
 <script>
+import MovieService from '@/services/MovieService.js'
 export default {
-    name: 'AppVideoModal'
+    name: 'AppVideoModal',
+    props: {
+        movie: {
+            require: true
+        }
+    },
+    data: function(){
+        return {
+            video: false
+        }
+    },
+    methods: {
+        getVideo: function(){
+            MovieService.getVideo(this.movie.id).then(
+                (response)=>{
+                    this.video = response.data
+                }
+            )
+        }
+    },
+    computed: {
+        firstVideo: function(){
+            if(this.video.length){
+                return this.video[0]
+            }
+        }
+    },
+    mounted: function(){
+        this.getVideo()
+    }
 }
 </script>
 

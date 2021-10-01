@@ -8,6 +8,12 @@ import "@/assets/css/index.css"
 
 
 Vue.mixin(AppMixin)
+
+import Loader from "@/components/Loader.vue"
+
+Vue.component('Loader', Loader)
+
+
 new Vue({
     template: '<App/>',
     components: { App }   

@@ -10,7 +10,7 @@
             </div>
             <div class="search-input-autocomplete" v-if="suggestions.length > 0" v-click-outside="closeSuggestion">
                 <div class="suggestion-item" v-for="item, index in suggestions" :key="'autocomplete-item'+index">
-                    <div class="item-link" @click="selectSuggestion(item)">{{ item }}</div>
+                    <div class="item-link" @click="selectSuggestion(item)">{{ item.title }}</div>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import VideoService from "@/services/VideoService.js"
+import MovieService from "@/services/MovieService.js"
 
 export default {
     name: 'AppHeader',
@@ -38,7 +38,14 @@ export default {
         autocomplete: function(){
             let q = this.searchparam
             /** auto complete serach result  */
-            this.suggestions = VideoService.getSuggestion(q)
+
+            MovieService.getList({
+                search: q
+            }).then((response) => {
+                 if(response.data.results){
+                    this.suggestions = response.data.results
+                }
+            })
         },
         closeSuggestion: function(){
             this.suggestions = []

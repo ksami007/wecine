@@ -1,7 +1,7 @@
 <template>
     <div class="banner-wrapper">
-        <div class="banner-video-item">
-            <img class="bg-image" src="https://www.themoviedb.org/t/p/w533_and_h300_bestv2/nlor5UKEkOuARd6YcltbeVyOgUz.jpg"/>
+        <div class="banner-video-item" v-if="movie">
+            <img class="bg-image" :src="`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`"/>
             <div class="video-control">
                 <button>
                     <span class="fa fa-play"></span>
@@ -9,11 +9,11 @@
             </div>
             <div class="video-meta">
                 <div class="video-meta--thubnail">
-                    <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/ztyJqTdS7RApGgl6ZXmFdGZX3g0.jpg">
+                    <img :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`">
                 </div>
                 <div class="video-meta--text">
-                    <div class="video-meta--title">Lorem upsome video</div>
-                    <div class="video-meta--desc">Tesst pulga maitre ianao chefo be nay</div>
+                    <div class="video-meta--title">{{ movie.title }}</div>
+                    <!--div class="video-meta--desc">Tesst pulga maitre ianao chefo be nay</div-->
                 </div>
             </div> 
         </div>
@@ -21,8 +21,30 @@
 </template>
 
 <script>
-export default {
 
+import MovieService from '@/services/MovieService.js'
+export default {
+    name: 'BestMovie',
+
+    data: function(){
+        return {
+            movie : false
+        }
+    },
+    methods: {
+        getTheBest: function(){
+            MovieService.getTheBest().then(
+                (response)=> {
+                    if(response.data){
+                        this.movie = response.data
+                    }
+                }
+            )
+        }
+    },
+    mounted: function(){
+        this.getTheBest()
+    }
 }
 </script>
 
@@ -35,7 +57,7 @@ export default {
         position: relative;
     }
     .bg-image{
-        min-width: 100%;
+        max-height: 50vh;
     }
     .video-control {
         position: absolute;

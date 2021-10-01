@@ -1,52 +1,67 @@
 <template>
     <div class="video-wrapper">
         <div class="thumbnails--container">
-            <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/ztyJqTdS7RApGgl6ZXmFdGZX3g0.jpg" />
+            <img :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`" />
         </div>
         <div class="video-content--container">
             <div class="video-header">
                 <div class="video-header--title">
-                    Video title
+                    {{ movie.title }}
                 </div>
                 <div class="video-header--rate">
                     <div class="video-rate--star">
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star-o"></span>
-                        <span class="fa fa-star-o"></span>
+                        <span class="fa fa-star"   v-for="(n,index) in fullStars" :key="'star-full-'+index"></span>
+                        <span class="fa fa-star-o" v-for="(n,index) in emptyStars" :key="'star-empty-'+index"></span>
                     </div>
                     <div class="video-rate--text">
-                            (2778 votes)
+                       ({{ movie.vote_count }} votes)
                     </div>
                 </div>
             </div>
             <div class="video-description">
                 <div class="description-meta">
-                    <span class="meta-date">2006</span>
+                    <span class="meta-date">{{ movie.release_date }}</span>
                     <span class="mata-org">Dysney par</span>
                 </div>
                 <div class="description-text">
-                    Commodo commodo Lorem aute nisi voluptate aliquip cupidatat dolor. Mollit nisi aliqua minim pariatur incididunt adipisicing 
-                    Commodo commodo Lorem aute nisi voluptate aliquip cupidatat dolor. Mollit nisi aliqua minim pariatur incididunt adipisicing 
+                    {{ movie.overview}}
                 </div>
             </div>
             <div class="video-controls">
                 <button class="show-more--btn" @click="openDetailModal">Lire le details</button>
             </div>
         </div>
-        <app-video-modal v-if="showDetails" @close="closeDetailModal" />
+        <app-video-modal v-if="showDetails" @close="closeDetailModal" :movie="movie" />
     </div>
 </template>
 
 <script>
 import AppVideoModal from './AppVideoModal.vue'
 export default {
-    name: 'AppVideo',
+    name: 'Movie',
     components: { AppVideoModal },
+    props: {
+        movie: {
+            require: true
+        }
+    },
     data: function(){
         return {
             showDetails: false
+        }
+    },
+    computed: {
+        fullStars: function(){
+            if(!this.movie.vote_average){
+                return 0
+            }
+            return parseInt(this.movie.vote_average)
+        },
+        emptyStars: function(){
+            if(!this.movie.vote_average){
+                return 10
+            }
+            return 10 - parseInt(this.movie.vote_average)
         }
     },
     methods:{
@@ -75,6 +90,7 @@ export default {
 
 .video-content--container {
     padding-left: 1.5rem;
+    width: 100%
 }
 
 .video-header {

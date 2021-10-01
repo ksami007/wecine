@@ -19,6 +19,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "axios": "^0.22.0",
         "bootstrap-grid": "^3.0.1",
         "font-awesome": "^4.7.0",
         "vue-click-outside": "^1.1.0"

@@ -1,41 +1,48 @@
 <template>
-  <div class="list-filter--wrapper">
-      <div class="filter-item">
+  <div class="list-filter--wrapper" v-if="genres">
+      <div class="filter-item" v-for="genre, index in genres" :key="'item-genre-'+index">
           <label>
-            <input type="checkbox">
-            <span>Commedie</span>
-          </label>
-      </div>
-      <div class="filter-item">
-          <label>
-            <input type="checkbox">
-            <span>Aventure</span>
-          </label>
-      </div>
-      <div class="filter-item">
-          <label>
-            <input type="checkbox">
-            <span>Fantastique</span>
-          </label>
-      </div>
-      <div class="filter-item">
-          <label>
-            <input type="checkbox">
-            <span>Annimation</span>
-          </label>
-      </div>
-      <div class="filter-item">
-          <label>
-            <input type="checkbox">
-            <span>Action</span>
+            <input type="checkbox" :value="genre.id" v-model="selectedGenre">
+            <span>{{ genre.name }}</span>
           </label>
       </div>
   </div>
 </template>
 
 <script>
+import MovieService  from "@/services/MovieService.js"
 export default {
-    name: 'ListFilter'
+    name: 'ListFilter',
+    data: function(){
+      return {
+        genres : false,
+        selectedGenre: []
+      }
+    },
+
+    methods: {
+      getGenreList: function(){
+        MovieService.getGenreList().then(
+          (response) => {
+            if(response.data.genres){
+              this.genres = response.data.genres
+            }
+          }
+        )
+      }
+    },
+
+    mounted: function(){
+      this.getGenreList()
+    },
+    watch: {
+      selectedGenre: {
+        deep: true,
+        handler: function(val){
+          this.$emit('change', val)
+        }
+      }
+    }
 }
 </script>
 
