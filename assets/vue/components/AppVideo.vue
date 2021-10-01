@@ -32,15 +32,31 @@
                 </div>
             </div>
             <div class="video-controls">
-                <button class="show-more--btn">Lire le details</button>
+                <button class="show-more--btn" @click="openDetailModal">Lire le details</button>
             </div>
         </div>
+        <app-video-modal v-if="showDetails" @close="closeDetailModal" />
     </div>
 </template>
 
 <script>
+import AppVideoModal from './AppVideoModal.vue'
 export default {
-    name: 'AppVideo'
+    name: 'AppVideo',
+    components: { AppVideoModal },
+    data: function(){
+        return {
+            showDetails: false
+        }
+    },
+    methods:{
+        openDetailModal: function(){
+            this.showDetails = true
+        },
+        closeDetailModal: function(){
+            this.showDetails = false
+        }
+    }
 }
 </script>
 

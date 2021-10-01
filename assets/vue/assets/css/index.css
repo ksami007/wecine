@@ -21,3 +21,7 @@
     font-family: "NunitoSans-LightItalic";
     src: url("fonts/NunitoSans-LightItalic.ttf");
 }
+
+button {
+    cursor: pointer;
+}

@@ -61,6 +61,9 @@ export default {
     .app-video-row{
         display: flex;
     }
+    .app-banner-container {
+        padding-bottom: 4rem;
+    }
     .col-list-filter {
         min-width: 12rem;
     }
