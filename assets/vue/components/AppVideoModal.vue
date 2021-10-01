@@ -5,22 +5,36 @@
                 <span class="close" @click="$emit('close')">&times;</span>
             </div>
             <div class="modal-body">
-                <div class="app-video-player" v-if="videokey">
+                <div class="app-video-player" v-if="video">
                     <iframe  
                       width="100%" 
                       id="video-player-iframe" 
-                      :src="`https://www.youtube.com/embed/${videokey}`"
+                      :src="`https://www.youtube.com/embed/${video.key}`"
                       frameborder="0" 
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                       allowfullscreen 
                       />
                 </div>
                 <div class="app-video-meta">
-                    <div class="meta-title">
-                        {{ movie.title }} {{ movie.id }}
+                    <div class="meta-title" v-if="video">
+                        {{ video.name }} 
                     </div>
                     <div class="meta-desc">
-                        {{ movie.overview }}
+                        <div class="meta-desc--header">
+                            <div class="desc-text">
+                                <span>Film : </span>
+                                <span>{{ movie.title }}</span>
+                            </div>
+                            <div class="desc-rate">
+                                <movie-rate :movie="movie" />
+                                <div class="video-rate--text">
+                                    pour {{ movie.vote_count }} votes
+                                </div>
+                            </div>
+                        </div>
+                        <div class="desc-overview">
+                           {{ movie.overview }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,7 +44,9 @@
 
 <script>
 import MovieService from '@/services/MovieService.js'
+import MovieRate from './MovieRate.vue'
 export default {
+  components: { MovieRate },
     name: 'AppVideoModal',
     props: {
         movie: {
@@ -39,29 +55,29 @@ export default {
     },
     data: function(){
         return {
-            video: false
+            videos: false
         }
     },
     methods: {
         getVideo: function(){
             MovieService.getVideo(this.movie.id).then(
                 (response)=>{
-                    this.video = response.data
+                    this.videos = response.data
                 }
             )
         }
     },
     computed: {
-        videokey: function(){
-            if(!this.video){
+        video: function(){
+            if(!this.videos){
                 return false
             }
-            if(this.video.length){
-               
-               for (let index = 0; index < this.video.length; index++) {
-                   const element = this.video[index]
+            
+            if(this.videos.length){
+               for (let index = 0; index < this.videos.length; index++) {
+                   const element = this.videos[index]
                    if(element.key){
-                       return element.key
+                       return element
                    }
                }
             }
