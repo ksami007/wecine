@@ -109,4 +109,20 @@ class MovieManager
 
         return $videos->results;
     }
+
+    /**
+     * @param int $id
+     * @return mixed
+     * @throws \Exception
+     */
+    public function retrieveMovie(int $id)
+    {
+        $video = $this->movieDbProvider->getVideoDetails($id);
+
+        if (!$video) {
+            throw new \Exception();
+        }
+
+        return json_decode($video);
+    }
 }

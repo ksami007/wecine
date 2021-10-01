@@ -14,6 +14,7 @@ class MovieDbProvider extends AbstractHttpProvider
     const MOVIES_SEARCH_LIST = 'search/movie';
     const TOP_RATED_MOVIES = 'movie/top_rated';
     const VIDEO_MOVIE = 'movie/<movie_id>/videos';
+    const MOVIE_DETAILS = 'movie/<movie_id>';
 
     public function __construct(LoggerInterface $logger)
     {
@@ -125,4 +126,18 @@ class MovieDbProvider extends AbstractHttpProvider
         return $this->call($uri, AbstractHttpProvider::GET_REQUEST);
     }
 
+    /**
+     * @param int $id
+     * @return false|string
+     */
+    public function getVideoDetails(int $id)
+    {
+        $uri = str_replace(
+            '<movie_id>',
+            $id,
+            self::MOVIE_DETAILS
+        );
+
+        return $this->call($uri, AbstractHttpProvider::GET_REQUEST);
+    }
 }

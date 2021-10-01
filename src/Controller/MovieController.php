@@ -93,6 +93,35 @@ class MovieController extends AbstractController
 
     /**
      * @Route(
+     *     path="/movie/details/{id}",
+     *     name="movie_details",
+     *     methods={"GET"},
+     *     defaults={"_format": "json"}
+     *     )
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function getMovie(int $id): JsonResponse
+    {
+        if (! is_integer($id)) {
+            return new JsonResponse(['message' => 'Invalid movie id'], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            $movie = $this->movieManager->retrieveMovie($id);
+        } catch (\Exception $exception) {
+            return new JsonResponse(
+                ['message' => 'Unable to retrieve movie details from API'],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        return $this->json($movie);
+    }
+
+    /**
+     * @Route(
      *     path="/movies/best",
      *     name="movies_best",
      *     methods={"GET"},
