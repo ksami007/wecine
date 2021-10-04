@@ -7,7 +7,9 @@ const AuthService = {
         if (response.data.token) {
           localStorage.setItem('wecine-user-token', response.data.token);
         }
-        return response.data;
+        return response;
+      }).catch(error => {
+        
       })
   },
 

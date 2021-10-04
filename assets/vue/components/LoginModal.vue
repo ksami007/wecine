@@ -14,6 +14,11 @@
                         <label>Mot de passe *</label>
                         <input type="password" v-model="user.password" id="user-password">
                     </div>
+                    
+                    <div class="login-error" v-if="error">
+                        <span>{{ error }}</span>
+                    </div>
+
                     <div class="form-group text-center">
                         <button class="submit-btn" @click="login">Me connecter</button>
                     </div>
@@ -32,7 +37,8 @@ export default {
             user: {
                 username     : 'wecine',
                 password : 'wecine'
-            }
+            },
+            error : false
         }
     },
     methods: {
@@ -43,10 +49,15 @@ export default {
                 return 
             }
 
+            this.error = false
+
             this.$store.dispatch("user/login", this.user).then((response) => {
-                if(response.token){
+                
+                if(response && response.data && response.data.token){
                     document.location.href = "/"
+                    return 
                 }
+                this.error = 'Mot de passe ou login invalide'
             })
 
         },
@@ -171,4 +182,9 @@ export default {
     border: solid 1px #317be2;
 }
 
+.login-error {
+    text-align: center;
+    color: red;
+    font-family: 'NunitoSans-Regular';
+}
 </style>
