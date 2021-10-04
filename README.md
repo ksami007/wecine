@@ -41,6 +41,12 @@ For prod env :
 $ docker-compose exec engine yarn encore production
 ```
 
+Launch functional test 
+----------------------
+```bash
+$ docker-compose exec engine php vendor/bin/codecept run
+```
+
 Tada
 ---------------------------
 
