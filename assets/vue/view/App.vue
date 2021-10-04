@@ -128,7 +128,9 @@ export default {
     },
 
     mounted: function(){
-        this.getMovies()
+        if(this.auth){
+            this.getMovies()
+        }
     }
 
 }

@@ -45,9 +45,8 @@ export default {
 
             this.$store.dispatch("user/login", this.user).then((response) => {
                 if(response.token){
-                    console.log('token', response.token)
+                    document.location.href = "/"
                 }
-                //let token = response.data.toketoken
             })
 
         },
