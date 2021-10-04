@@ -3,6 +3,7 @@ import App            from '@/view/App.vue'
 import AppMixin       from '@/mixins/AppMixin';
 import Loader         from "@/components/Loader.vue"
 import VueTruncate    from 'vue-truncate-filter'
+import store          from "@/store"
 
 /** import global style */
 import "@/assets/css/index.css"
@@ -16,10 +17,12 @@ Vue.use(VueTruncate)
 
 
 new Vue({
-    template: '<App/>',
-    components: { App }   
+    template   : '<App/>',
+    components : { App },
+    store
 }).$mount('#app')
 
+/*
 Vue.directive('click-outside', {
     bind: function (el, binding, vnode) {
         el.event = function (event) {
@@ -33,3 +36,4 @@ Vue.directive('click-outside', {
         document.body.removeEventListener('click', el.event)
     },
 });
+*/

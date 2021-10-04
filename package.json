@@ -24,6 +24,7 @@
         "font-awesome": "^4.7.0",
         "vue-click-outside": "^1.1.0",
         "vue-sticky-element": "^1.1.2",
-        "vue-truncate-filter": "^1.1.7"
+        "vue-truncate-filter": "^1.1.7",
+        "vuex": "^3.6.2"
     }
 }

@@ -4,29 +4,34 @@
             <div class="app-header-container">
                 <app-header @selected="selectedMovie"/>
             </div>
-            <div class="app-banner-container">
-                <best-movie />
-            </div>
+            <template v-if="auth">
+                <div class="app-banner-container">
+                    <best-movie />
+                </div>
 
-            <div class="movie-row" id="movie-row">
-                <div class="col col-list-filter">
-                    <list-filter @change="filterChange"/>
-                </div>
-                <div class="col list-loader" v-if="fetching">
-                    <loader />
-                </div>
-                <div class="col" v-else>
-                    <div class="video-list-container" v-if="movies">
-                        <div class="video-item--wrapper" v-for="movie, index in movies" :key="'movie-item-'+index">
-                            <movie :movie="movie" />
-                        </div>
-                        <div class="paginator-wrapper" v-if="needPaginator">
-                            <button @click="prev">Precedent</button>
-                            <button @click="next">Suivant</button>
+                <div class="movie-row" id="movie-row">
+                    <div class="col col-list-filter">
+                        <list-filter @change="filterChange"/>
+                    </div>
+                    <div class="col list-loader" v-if="fetching">
+                        <loader />
+                    </div>
+                    <div class="col" v-else>
+                        <div class="video-list-container" v-if="movies">
+                            <div class="video-item--wrapper" v-for="movie, index in movies" :key="'movie-item-'+index">
+                                <movie :movie="movie" />
+                            </div>
+                            <div class="paginator-wrapper" v-if="needPaginator">
+                                <button @click="prev">Precedent</button>
+                                <button @click="next">Suivant</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
+            <template v-else>
+                <login-modal />
+            </template>
             
         </div>
     </div>
@@ -38,6 +43,7 @@ import BestMovie      from "@/components/BestMovie.vue"
 import ListFilter     from '@/components/ListFilter.vue'
 import Movie          from '@/components/Movie.vue'
 import MovieService   from "@/services/MovieService.js"
+import LoginModal     from '@/components/LoginModal.vue'
 
 export default {
     name: 'App',
@@ -46,7 +52,8 @@ export default {
         ListFilter,
         AppHeader,
         BestMovie,
-        Movie
+        Movie,
+        LoginModal
     },
 
     data: function(){
@@ -60,6 +67,9 @@ export default {
     computed: {
         needPaginator: function(){
             return this.movies.length == 20
+        },
+        auth: function(){
+            return this.currentUser.loggedIn
         }
     },
     methods: {
@@ -101,6 +111,7 @@ export default {
             window.scrollTo(0,0)
         }
     },
+
     watch: {
         params: {
             deep: true,
