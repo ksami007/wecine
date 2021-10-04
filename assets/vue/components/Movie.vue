@@ -70,7 +70,6 @@ export default {
             this.showDetails    = false
         },
         getDetail: function(){
-            return false
             MovieService.getDetail(this.movie.id).then(
                 (response) => {
                     if(response.data){
