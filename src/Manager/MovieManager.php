@@ -73,7 +73,7 @@ class MovieManager
      */
     public function retrieveBestMovie()
     {
-        $topRated = $this->movieDbProvider->getTopRatedMovies();
+        $topRated = $this->movieDbProvider->getMostPopularMovies();
 
         if (!$topRated) {
             throw new \Exception();

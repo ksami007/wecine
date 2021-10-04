@@ -3,15 +3,14 @@ security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#c-hashing-passwords
     password_hashers:
-        App\Entity\User:
-            algorithm: auto
+        Symfony\Component\Security\Core\User\InMemoryUser: 'auto'
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users:
-            entity:
-                class: 'App\Entity\User'
-                property: 'username'
+        backend_users:
+            memory:
+                users:
+                    wecine: { password: $2y$13$bjUa8lPL71OzBQEHpILpTeIgv.xTvxuAgnH1QQhJ4VvxHTLI.WcRS, roles: ['ROLE_USER'] }
 
     firewalls:
         login:
@@ -24,7 +23,7 @@ security:
 
         api:
             pattern: ^/api
-            provider: users
+            provider: backend_users
             stateless: true
             jwt: ~
 

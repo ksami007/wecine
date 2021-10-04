@@ -12,7 +12,7 @@ class MovieDbProvider extends AbstractHttpProvider
     const GENDERS_LIST_URI = 'genre/movie/list';
     const MOVIES_LIST = 'discover/movie';
     const MOVIES_SEARCH_LIST = 'search/movie';
-    const TOP_RATED_MOVIES = 'movie/top_rated';
+    const MOST_POPULAR_MOVIES = 'movie/popular';
     const VIDEO_MOVIE = 'movie/<movie_id>/videos';
     const MOVIE_DETAILS = 'movie/<movie_id>';
 
@@ -102,13 +102,13 @@ class MovieDbProvider extends AbstractHttpProvider
      * @param int $page
      * @return false|string
      */
-    public function getTopRatedMovies(int $page = 1)
+    public function getMostPopularMovies(int $page = 1)
     {
         $params = [
             RequestOptions::QUERY => ['page' => $page]
         ];
 
-        return $this->call(self::TOP_RATED_MOVIES, AbstractHttpProvider::GET_REQUEST, $params);
+        return $this->call(self::MOST_POPULAR_MOVIES, AbstractHttpProvider::GET_REQUEST, $params);
     }
 
     /**
