@@ -17,6 +17,12 @@ Install symfony vendors:
 $ docker-compose exec engine composer install
 ```
 
+Configure authentication key/token to Movie DB by setting ./.env variables
+```bash
+THE_MOVIE_API_KEY=
+THE_MOVIE_JWT_TOKEN=
+```
+
 Frontend configuration
 ----------------------
 Launch install :
