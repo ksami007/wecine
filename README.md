@@ -45,6 +45,7 @@ Tada
 ---------------------------
 
 You are ready to launch your browser on http://localhost:80
+Credentials to authenticate on the application are : wecine/wecine
 
 
 
