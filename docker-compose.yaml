@@ -3,14 +3,14 @@ version: "3.5"
 services:
     nginx:
         restart: always
-            image: nginx
-            volumes:
-                - ./:/var/www:ro
-                - ./var/nginx:/var/log/nginx:rw
-                # http://symfony.com/doc/current/setup/web_server_configuration.html#nginx
-                - ./docker/front/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-            ports:
-                - 80:80
+        image: nginx
+        volumes:
+            - ./:/var/www:ro
+            - ./var/nginx:/var/log/nginx:rw
+            # http://symfony.com/doc/current/setup/web_server_configuration.html#nginx
+            - ./docker/front/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        ports:
+            - 80:80
     engine:
         restart: always
         container_name: wecine-engine
