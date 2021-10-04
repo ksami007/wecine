@@ -56,4 +56,16 @@ export default {
       margin-bottom: 15px;
       color: #444474;
   }
+  @media (max-width:991px) {
+    .list-filter--wrapper{
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 1rem 0 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    .filter-item{
+          min-width: 8rem;
+    }
+  }
 </style>

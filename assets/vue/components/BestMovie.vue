@@ -16,7 +16,7 @@
                 </div>
             </div> 
         </div>
-        <app-video-modal v-if="play" @close="closeVideo" :movie="movie" />
+        <app-video-modal v-if="play" :autoplay="1" @close="closeVideo" :movie="movie" />
     </div>
 </template>
 

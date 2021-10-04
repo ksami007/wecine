@@ -9,7 +9,7 @@
                     <iframe  
                       width="100%" 
                       id="video-player-iframe" 
-                      :src="`https://www.youtube.com/embed/${video.key}`"
+                      :src="`https://www.youtube.com/embed/${video.key}?autoplay=${autoplay}`"
                       frameborder="0" 
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                       allowfullscreen 
@@ -22,13 +22,13 @@
                     <div class="meta-desc">
                         <div class="meta-desc--header">
                             <div class="desc-text">
-                                <span>Film : </span>
+                                <span class="label">Film : </span>
                                 <span>{{ movie.title }}</span>
                             </div>
                             <div class="desc-rate">
                                 <movie-rate :movie="movie" />
                                 <div class="video-rate--text">
-                                    pour {{ movie.vote_count }} votes
+                                    pour {{ movie.vote_count }} utilisateurs
                                 </div>
                             </div>
                         </div>
@@ -51,6 +51,9 @@ export default {
     props: {
         movie: {
             require: true
+        },
+        autoplay: {
+            default: 0
         }
     },
     data: function(){
@@ -143,5 +146,38 @@ export default {
 
 iframe{
   height:50vh;
+}
+
+.meta-title {
+    font-family: 'NunitoSans-Bold';
+    font-size: 1.2rem;
+}
+.meta-desc--header {
+    display: flex;
+    align-items: center;
+    font-family: 'NunitoSans-Regular';
+    margin-top: 14px;
+}
+.desc-text {
+    font-size: 14px;
+}
+.desc-text .label{
+    color: #666;
+}
+
+.desc-rate {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.video-rate--text {
+    margin-left: 5px;
+    font-size: 14px;
+}
+.desc-overview {
+    margin-top: 8px;
+    font-size: 14px;
+    font-family: 'NunitoSans-Regular';
 }
 </style>

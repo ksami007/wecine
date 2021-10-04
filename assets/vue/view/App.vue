@@ -20,7 +20,7 @@
                         <div class="video-item--wrapper" v-for="movie, index in movies" :key="'movie-item-'+index">
                             <movie :movie="movie" />
                         </div>
-                        <div class="paginator-wrapper">
+                        <div class="paginator-wrapper" v-if="needPaginator">
                             <button @click="prev">Precedent</button>
                             <button @click="next">Suivant</button>
                         </div>
@@ -57,7 +57,11 @@ export default {
             page      : 1
         }
     },
-
+    computed: {
+        needPaginator: function(){
+            return this.movies.length == 20
+        }
+    },
     methods: {
         getMovies: function(){
             this.fetching = true
@@ -94,7 +98,7 @@ export default {
             this.page --
         },
         goToList: function(){
-
+            window.scrollTo(0,0)
         }
     },
     watch: {
@@ -122,6 +126,7 @@ export default {
 <style scoped>
     .movie-row{
         display: flex;
+        position: relative;
     }
     .app-banner-container {
         padding-bottom: 4rem;
@@ -142,11 +147,6 @@ export default {
         width: 100%;
     }
     @media (max-width:991px) {
-        .list-filter--wrapper{
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem 1rem 0 1rem;
-        }
         .movie-row{
             flex-direction: column;
         } 

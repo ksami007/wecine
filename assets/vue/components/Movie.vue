@@ -18,7 +18,8 @@
             <div class="video-description">
                 <div class="description-meta">
                     <span class="meta-date">{{ movie.release_date }}</span>
-                    <span class="mata-org">Dysney par</span>
+                    <span class="mata-org" v-if="productor">- {{ productor.name }}</span>
+                    <span class="mata-org-blur" v-else>- productor name </span>
                 </div>
                 <div class="description-text">
                     {{ movie.overview | truncate(200)}}
@@ -34,7 +35,8 @@
 
 <script>
 import AppVideoModal from './AppVideoModal.vue'
-import MovieRate from './MovieRate.vue'
+import MovieRate     from './MovieRate.vue'
+import MovieService  from "@/services/MovieService.js"
 export default {
     name: 'Movie',
     components: { AppVideoModal, MovieRate },
@@ -45,16 +47,44 @@ export default {
     },
     data: function(){
         return {
-            showDetails: false
+            showDetails: false,
+            details    : false,
+            modalOpenning: false
+
+        }
+    },
+    computed: {
+        productor: function(){
+            if(this.details && this.details.production_companies){
+                return this.details.production_companies[0]
+            }
+            return false
         }
     },
     methods:{
         openDetailModal: function(){
             this.showDetails = true
+            
         },
         closeDetailModal: function(){
-            this.showDetails = false
+            this.showDetails    = false
+        },
+        getDetail: function(){
+            return false
+            MovieService.getDetail(this.movie.id).then(
+                (response) => {
+                    if(response.data){
+                        this.details = response.data
+                    }
+                }
+            )
         }
+    },
+    watch: {
+       
+    },
+    mounted: function(){
+        this.getDetail()
     }
 }
 </script>
@@ -124,11 +154,28 @@ button.show-more--btn {
     font-size: 13px;
     color: #317be2;
 }
+.video-description .mata-org-blur {
+    font-family: 'NunitoSans-Regular';
+    font-size: 13px;
+    color: #666;
+    filter: blur(2px);
+}
+
 .description-text {
     color: #666;
     font-family: 'NunitoSans-Regular';
     font-size: 14px;
 }
 
+@media (max-width:1200px) {
+   .video-header--title {
+     font-size: 1.2rem;  
+   } 
+
+   .video-description .meta-date{
+       font-size: 14px;
+    }
+    
+}
 
 </style>

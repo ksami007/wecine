@@ -1,4 +1,3 @@
-import Faker from './Faker'
 import axios from 'axios'
 
 const MovieService = {
@@ -15,23 +14,13 @@ const MovieService = {
         return axios.get('/api/movies/list', { params }) 
     },
 
-    getVideo: function(mid){
-        return axios.get(`/api/movies/videos/${mid}`) 
-    },
-
-    getSuggestion: function(q){
-        return Faker.getFakeSuggestion(q)
-    },
-
-    findByGenres: function(genres){
-        return Faker.getVideoByGenres(genres)
+    getDetail: function(mid){
+        return axios.get(`/api/movie/details/${mid}`) 
     },
     
-    getAllVideos: function(){
-        return Faker.getAllVideos()
-    },
-
-
+    getVideo: function(mid){
+        return axios.get(`/api/movies/videos/${mid}`) 
+    }
 }
 
 export default MovieService
